@@ -25,6 +25,23 @@ export default async function DashboardPage() {
         siguiendo el patrón de Multisoplado.
       </p>
 
+      <a
+        href="/produccion"
+        style={{
+          display: "inline-block",
+          marginBottom: 16,
+          padding: "10px 18px",
+          background: "#123B7A",
+          color: "#fff",
+          borderRadius: 4,
+          textDecoration: "none",
+          fontWeight: 600,
+        }}
+      >
+        Registro de Producción →
+      </a>
+      <br />
+
       <LogoutButton />
     </div>
   );
