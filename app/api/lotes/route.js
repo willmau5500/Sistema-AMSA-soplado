@@ -3,6 +3,26 @@ import { cookies } from "next/headers";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { leerSesion } from "@/lib/session";
 
+export async function GET() {
+  const token = cookies().get("sesion")?.value;
+  const sesion = token ? await leerSesion(token) : null;
+  if (!sesion) {
+    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
+  }
+
+  const { data, error } = await supabaseAdmin
+    .from("lotes_produccion")
+    .select("id, codigo_lote, fecha, creado_en")
+    .order("creado_en", { ascending: false })
+    .limit(30);
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  return NextResponse.json({ lotes: data });
+}
+
 export async function POST(request) {
   const token = cookies().get("sesion")?.value;
   const sesion = token ? await leerSesion(token) : null;

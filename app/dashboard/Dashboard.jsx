@@ -115,6 +115,7 @@ export default function Dashboard({ nombre, rol }) {
               <span className="dash-user-role">{rol}</span>
             </div>
             <a href="/produccion" className="btn-primary">Registro de Producción</a>
+            <a href="/merma" className="btn-secondary-link">Registro de Merma</a>
             <LogoutButton />
           </div>
         </header>
@@ -301,6 +302,8 @@ const css = `
 .dash-user-role{ font-size:11.5px; color:var(--ink-soft); text-transform:capitalize; }
 .btn-primary{ padding:9px 16px; background:var(--brand-dark); color:#fff; border-radius:4px; font-size:13px; font-weight:600; text-decoration:none; white-space:nowrap; }
 .btn-primary:hover{ background:var(--brand); }
+.btn-secondary-link{ padding:9px 16px; background:#fff; color:var(--brand-dark); border:1.5px solid var(--line); border-radius:4px; font-size:13px; font-weight:600; text-decoration:none; white-space:nowrap; }
+.btn-secondary-link:hover{ border-color:var(--brand); }
 
 .dash-main{ padding:28px 32px 60px 32px; max-width:1200px; margin:0 auto; }
 
