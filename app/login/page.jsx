@@ -293,7 +293,10 @@ export default function LoginPage() {
           <div className="brand">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo-multisoplado-white.png" alt="" />
-            <span className="brand-word">MULTISOPLADO</span>
+            <div className="brand-word-row">
+              <span className="brand-word">MULTISOPLADO</span>
+              <span className="brand-suffix">S.A.S.</span>
+            </div>
             <div className="brand-sub">Control de planta · Multisoplado</div>
           </div>
 
@@ -434,10 +437,12 @@ const css = `
     linear-gradient(180deg, var(--pine) 0%, var(--pine-2) 100%);
   color:#fff; padding:48px 56px; display:flex; flex-direction:column; justify-content:space-between; overflow:hidden; }
 .bokeh-canvas{ position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none; }
-.brand{ display:flex; align-items:center; position:relative; z-index:2; }
-.brand img{ height:34px; display:block; }
-.brand-word{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; letter-spacing:0.06em; margin-left:10px; color:#fff; }
-.brand-sub{ font-size:12.5px; letter-spacing:0.03em; color:rgba(255,255,255,0.5); margin-left:16px; padding-left:16px; border-left:1px solid rgba(255,255,255,0.18); }
+.brand{ display:flex; flex-direction:column; align-items:center; position:relative; z-index:2; text-align:center; }
+.brand img{ height:56px; display:block; margin-bottom:10px; }
+.brand-word-row{ display:flex; align-items:baseline; gap:6px; }
+.brand-word{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:20px; letter-spacing:0.04em; color:#fff; }
+.brand-suffix{ font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.03em; color:rgba(255,255,255,0.7); }
+.brand-sub{ font-size:12px; letter-spacing:0.03em; color:rgba(255,255,255,0.45); margin-top:6px; }
 .process-stage{ flex:1; display:flex; align-items:center; justify-content:center; padding:12px 0; position:relative; z-index:2; }
 .process-row{ display:flex; align-items:center; gap:48px; max-width:620px; width:100%; }
 .process-copy h1{ font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:clamp(24px,2.4vw,33px); line-height:1.18; margin:0 0 12px 0; }
