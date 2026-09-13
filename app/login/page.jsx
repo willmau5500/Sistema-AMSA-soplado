@@ -170,7 +170,7 @@ export default function LoginPage() {
         if (p.x < -p.r) p.x = r.width + p.r;
         if (p.x > r.width + p.r) p.x = -p.r;
         const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
-        const color = p.hue === "green" ? "156,203,75" : "232,130,58";
+        const color = p.hue === "green" ? "63,198,184" : "91,194,234";
         g.addColorStop(0, `rgba(${color},${p.a})`);
         g.addColorStop(1, `rgba(${color},0)`);
         ctx.fillStyle = g;
@@ -193,7 +193,7 @@ export default function LoginPage() {
         dot.setAttribute("cx", cx);
         dot.setAttribute("cy", cy);
         dot.setAttribute("r", 2 + Math.random() * 1.8);
-        dot.setAttribute("fill", Math.random() > 0.4 ? "#E8823A" : "#9CCB4B");
+        dot.setAttribute("fill", Math.random() > 0.55 ? "#E8823A" : (Math.random() > 0.5 ? "#5BC2EA" : "#3FC6B8"));
         burstG.appendChild(dot);
         const tx = Math.cos(angle) * dist;
         const ty = Math.sin(angle) * dist;
@@ -292,8 +292,8 @@ export default function LoginPage() {
 
           <div className="brand">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo-amsa-white.png" alt="AMSA" />
-            <div className="brand-sub">Control de planta · Soplado</div>
+            <img src="/logo-multisoplado-white.png" alt="MULTISOPLADO S.A.S." />
+            <div className="brand-sub">Control de planta · Multisoplado</div>
           </div>
 
           <div className="process-stage">
@@ -312,8 +312,8 @@ export default function LoginPage() {
                 <svg viewBox="0 0 200 320" width="100%" height="auto" style={{ overflow: "visible" }}>
                   <defs>
                     <linearGradient id="bottleGrad" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stopColor="#9CCB4B" />
-                      <stop offset="100%" stopColor="#087637" />
+                      <stop offset="0%" stopColor="#3FC6B8" />
+                      <stop offset="100%" stopColor="#123B7A" />
                     </linearGradient>
                     <radialGradient id="flashGrad" cx="50%" cy="50%" r="50%">
                       <stop offset="0%" stopColor="#FFD9A8" stopOpacity="0.95" />
@@ -363,7 +363,7 @@ export default function LoginPage() {
           <div className="login-box">
             <div className="mark">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo-amsa-mark.png" alt="" />
+              <img src="/logo-multisoplado-icon.png" alt="" />
             </div>
             <h2>Iniciar sesión</h2>
             <p className="hint">Ingresa tus credenciales para continuar</p>
@@ -411,7 +411,7 @@ export default function LoginPage() {
             </form>
 
             <div className="login-footer">
-              Sistema AMSA Soplado — acceso restringido a personal autorizado
+              Sistema Multisoplado — acceso restringido a personal autorizado
             </div>
           </div>
         </section>
@@ -422,8 +422,8 @@ export default function LoginPage() {
 
 const css = `
 :root{
-  --ink:#16211D; --ink-soft:#4E5B54; --pine:#0E2618; --pine-2:#163823;
-  --amsa-dark:#087637; --amsa:#2E9C4C; --amsa-light:#9CCB4B; --amber:#E8823A;
+  --ink:#16213A; --ink-soft:#4E5A72; --pine:#0F2148; --pine-2:#1B3E73;
+  --brand-dark:#123B7A; --brand:#2A6FE0; --brand-light:#3FC6B8; --amber:#E8823A;
   --surface:#F4F5F2; --surface-2:#E9EBE5; --line:#D8DCD3; --white:#FFFFFF;
 }
 *{ box-sizing:border-box; }
@@ -442,10 +442,10 @@ const css = `
 .process-copy p{ font-size:14.5px; line-height:1.6; color:rgba(255,255,255,0.6); margin:0 0 20px 0; }
 .stage-labels{ display:flex; justify-content:space-between; font-family:'Space Grotesk',sans-serif; font-size:11.5px; letter-spacing:0.03em; color:rgba(255,255,255,0.4); max-width:190px; }
 .stage-labels span{ transition:color 0.3s ease; }
-.stage-labels span.on{ color:var(--amsa-light); }
+.stage-labels span.on{ color:var(--brand-light); }
 .bottle-stage{ flex-shrink:0; width:190px; position:relative; }
 .footer-status{ display:flex; align-items:center; gap:10px; font-size:13px; color:rgba(255,255,255,0.4); border-top:1px solid rgba(255,255,255,0.1); padding-top:18px; position:relative; z-index:2; }
-.dot{ width:7px; height:7px; border-radius:50%; background:var(--amsa-light); box-shadow:0 0 0 3px rgba(156,203,75,0.2); }
+.dot{ width:7px; height:7px; border-radius:50%; background:var(--brand-light); box-shadow:0 0 0 3px rgba(63,198,184,0.25); }
 .login{ background:var(--surface); display:flex; align-items:center; justify-content:center; padding:40px; }
 .login-box{ width:100%; max-width:360px; }
 .login-box .mark{ margin-bottom:28px; }
@@ -454,19 +454,19 @@ const css = `
 .login-box .hint{ font-size:14px; color:var(--ink-soft); margin:0 0 30px 0; }
 .field{ position:relative; margin-bottom:22px; }
 .field input{ width:100%; padding:18px 14px 8px 14px; font-size:14.5px; color:var(--ink); background:#fff; border:1.5px solid var(--line); border-radius:4px; outline:none; transition:border-color 0.2s ease; }
-.field input:focus{ border-color:var(--amsa); }
+.field input:focus{ border-color:var(--brand); }
 .field label{ position:absolute; left:14px; top:16px; font-size:14.5px; color:#8B948C; pointer-events:none; transform-origin:left top; transition:transform 0.18s cubic-bezier(0.4,0,0.2,1), color 0.18s ease, top 0.18s ease; }
-.field input:focus + label, .field input.filled + label{ top:8px; transform:scale(0.74); color:var(--amsa-dark); font-weight:600; }
+.field input:focus + label, .field input.filled + label{ top:8px; transform:scale(0.74); color:var(--brand-dark); font-weight:600; }
 .error-msg{ color:#C0392B; font-size:13.5px; margin:-10px 0 16px 0; }
 .row-between{ display:flex; align-items:center; justify-content:space-between; margin:4px 0 26px 0; font-size:13px; flex-wrap:wrap; gap:8px; }
 .checkbox{ display:flex; align-items:center; gap:8px; color:var(--ink-soft); }
-.checkbox input{ accent-color:var(--amsa); width:14px; height:14px; }
-.row-between a{ color:var(--amsa-dark); text-decoration:none; font-weight:500; }
+.checkbox input{ accent-color:var(--brand); width:14px; height:14px; }
+.row-between a{ color:var(--brand-dark); text-decoration:none; font-weight:500; }
 .row-between a:hover{ text-decoration:underline; }
-.btn-primary{ position:relative; width:100%; padding:14px; font-size:14.5px; font-weight:600; color:#fff; background:var(--amsa-dark); border:none; border-radius:4px; cursor:pointer; overflow:hidden; isolation:isolate; transition:transform 0.12s ease; }
+.btn-primary{ position:relative; width:100%; padding:14px; font-size:14.5px; font-weight:600; color:#fff; background:var(--brand-dark); border:none; border-radius:4px; cursor:pointer; overflow:hidden; isolation:isolate; transition:transform 0.12s ease; }
 .btn-primary:hover{ filter:brightness(1.08); }
 .btn-primary:active{ transform:scale(0.98); }
-.btn-primary .fill{ position:absolute; inset:0; background:var(--amsa-light); transform:scaleX(0); transform-origin:left; z-index:-1; }
+.btn-primary .fill{ position:absolute; inset:0; background:var(--brand-light); transform:scaleX(0); transform-origin:left; z-index:-1; }
 .btn-primary.pouring .fill{ animation:pour 0.65s cubic-bezier(0.65,0,0.35,1) forwards; }
 @keyframes pour{ to{ transform:scaleX(1); } }
 .btn-primary .label{ position:relative; z-index:1; }

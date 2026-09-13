@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "AMSA Soplado — Control de planta",
-  description: "Sistema de producción de multisoplado de botellas para AMSA",
+  title: "Multisoplado — Control de planta",
+  description: "Sistema de producción de multisoplado de botellas para Multisoplado S.A.S.",
 };
 
 export default function RootLayout({ children }) {

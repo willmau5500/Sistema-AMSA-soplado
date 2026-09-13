@@ -22,7 +22,7 @@ export default async function DashboardPage() {
       <p style={{ color: "#8B948C" }}>
         Este es un placeholder — aquí va el Tablero de Control Gerencial
         (KPIs, estado de máquinas, cumplimiento de metas) que armamos
-        siguiendo el patrón de AMSA.
+        siguiendo el patrón de Multisoplado.
       </p>
 
       <LogoutButton />

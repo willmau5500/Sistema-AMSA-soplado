@@ -1,8 +1,8 @@
-# Sistema AMSA Soplado
+# Sistema Multisoplado
 
-Sistema de producción de multisoplado de botellas para AMSA — de materia
-prima a producto terminado, con control de merma, metas de producción y
-paradas de máquina.
+Sistema de producción de multisoplado de botellas para MULTISOPLADO S.A.S.
+— de materia prima a producto terminado, con control de merma, metas de
+producción y paradas de máquina.
 
 ## Stack
 
@@ -48,8 +48,8 @@ lib/
   supabaseAdmin.js       → cliente de Supabase con la service role key (solo backend)
   session.js             → firma y verifica la cookie de sesión (JWT)
 public/
-  logo-amsa-white.png    → logo AMSA (texto en blanco, para fondos oscuros)
-  logo-amsa-mark.png     → solo el símbolo verde, recortado con transparencia real
+  logo-multisoplado-white.png  → logo completo (texto en blanco, para fondos oscuros)
+  logo-multisoplado-icon.png   → solo el ícono a color, recortado con transparencia real
 ```
 
 ## Pendiente
