@@ -5,6 +5,7 @@ import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   BarChart, Bar,
 } from "recharts";
+import { TIPO_PARADA_LABEL } from "@/lib/constantes";
 
 // ---------- Animated count-up ----------
 function useCountUp(target, duration = 900) {
@@ -44,16 +45,6 @@ function tiempoDesde(iso) {
   if (h < 24) return `hace ${h} h`;
   return `hace ${Math.floor(h / 24)} d`;
 }
-
-const TIPO_PARADA_LABEL = {
-  mecanica: "Mecánica",
-  electrica: "Eléctrica",
-  falta_materia_prima: "Falta de MP",
-  cambio_formato: "Cambio de formato",
-  mantenimiento_programado: "Mant. programado",
-  calidad: "Calidad",
-  otro: "Otro",
-};
 
 function KpiCard({ icon, label, value, suffix, sublabel, alert }) {
   return (

@@ -4,7 +4,7 @@ const NAV_PRINCIPAL = [
   { href: "/dashboard", label: "Inicio", icon: HomeIcon },
   { href: "/produccion", label: "Registro de Producción", icon: FactoryIcon },
   { href: "/merma", label: "Registro de Merma", icon: DropIcon },
-  { href: "/paradas", label: "Paradas de Máquina", icon: PauseIcon, proximamente: true },
+  { href: "/paradas", label: "Paradas de Máquina", icon: PauseIcon },
 ];
 
 const NAV_CONFIG = [
@@ -19,6 +19,7 @@ const PAGE_TITLES = {
   "/dashboard": "Tablero de Control",
   "/produccion": "Registro de Producción",
   "/merma": "Registro de Merma",
+  "/paradas": "Paradas de Máquina",
 };
 
 export default function AppShell({ nombre, rol, paginaActual, children }) {
