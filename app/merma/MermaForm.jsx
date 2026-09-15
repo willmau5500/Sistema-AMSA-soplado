@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 
 const ETAPAS = [
   { value: "preforma", label: "Preforma" },
@@ -13,8 +12,6 @@ const TIPOS = [
 ];
 
 export default function MermaForm({ nombreOperario }) {
-  const router = useRouter();
-
   const [lotes, setLotes] = useState([]);
   const [loadingLotes, setLoadingLotes] = useState(true);
   const [errorCarga, setErrorCarga] = useState("");
@@ -93,15 +90,7 @@ export default function MermaForm({ nombreOperario }) {
       <style>{css}</style>
       <div className="wizard-screen">
         <div className="wizard-card">
-          <div className="wizard-header">
-            <div>
-              <h1>Registro de Merma</h1>
-              <p className="sub">Operario: {nombreOperario}</p>
-            </div>
-            <button className="link-btn" onClick={() => router.push("/dashboard")}>
-              ← Volver al tablero
-            </button>
-          </div>
+          <p className="operario-tag">Operario: {nombreOperario}</p>
 
           {loadingLotes && <p className="hint">Cargando lotes...</p>}
           {errorCarga && <p className="error-msg">{errorCarga}</p>}
@@ -206,13 +195,9 @@ const css = `
   --ink:#16211D; --ink-soft:#5B6B7A; --surface:#F4F5F2; --line:#D8DCE0; --white:#fff;
 }
 *{ box-sizing:border-box; }
-.wizard-screen{ min-height:100vh; background:var(--surface); display:flex; align-items:flex-start; justify-content:center; padding:48px 20px; font-family:'Inter',sans-serif; color:var(--ink); }
+.wizard-screen{ display:flex; align-items:flex-start; justify-content:center; padding:32px 20px; font-family:'Inter',sans-serif; color:var(--ink); }
 .wizard-card{ width:100%; max-width:560px; background:#fff; border:1px solid var(--line); border-radius:8px; padding:36px; }
-.wizard-header{ display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:28px; }
-.wizard-header h1{ font-family:'Space Grotesk',sans-serif; font-size:22px; margin:0 0 4px 0; }
-.wizard-header .sub{ margin:0; color:var(--ink-soft); font-size:13.5px; }
-.link-btn{ background:none; border:none; color:var(--brand-dark); font-size:13px; cursor:pointer; padding:0; }
-.link-btn:hover{ text-decoration:underline; }
+.operario-tag{ font-size:12.5px; color:var(--ink-soft); margin:0 0 22px 0; }
 
 .field-grid{ display:flex; flex-direction:column; gap:18px; margin-bottom:24px; }
 .field label{ display:block; font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:6px; }

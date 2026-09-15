@@ -5,7 +5,6 @@ import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   BarChart, Bar,
 } from "recharts";
-import LogoutButton from "./LogoutButton";
 
 // ---------- Animated count-up ----------
 function useCountUp(target, duration = 900) {
@@ -69,7 +68,7 @@ function KpiCard({ icon, label, value, suffix, sublabel, alert }) {
   );
 }
 
-export default function Dashboard({ nombre, rol }) {
+export default function DashboardContent() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -104,22 +103,6 @@ export default function Dashboard({ nombre, rol }) {
     <>
       <style>{css}</style>
       <div className="dash">
-        <header className="dash-header">
-          <div className="dash-brand">
-            <div className="dash-logo-dot" />
-            <span>MULTISOPLADO</span>
-          </div>
-          <div className="dash-user">
-            <div className="dash-user-info">
-              <span className="dash-user-name">{nombre}</span>
-              <span className="dash-user-role">{rol}</span>
-            </div>
-            <a href="/produccion" className="btn-primary">Registro de Producción</a>
-            <a href="/merma" className="btn-secondary-link">Registro de Merma</a>
-            <LogoutButton />
-          </div>
-        </header>
-
         <main className="dash-main">
           {loading && (
             <div className="kpi-row">
@@ -291,19 +274,7 @@ const css = `
   --alert:#C0392B;
 }
 *{ box-sizing:border-box; }
-.dash{ min-height:100vh; background:var(--surface); font-family:'Inter',sans-serif; color:var(--ink); }
-
-.dash-header{ display:flex; align-items:center; justify-content:space-between; padding:16px 32px; background:#fff; border-bottom:1px solid var(--line); }
-.dash-brand{ display:flex; align-items:center; gap:10px; font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:0.04em; font-size:15px; color:var(--brand-dark); }
-.dash-logo-dot{ width:10px; height:10px; border-radius:50%; background:linear-gradient(135deg,var(--brand-light),var(--brand-dark)); }
-.dash-user{ display:flex; align-items:center; gap:16px; }
-.dash-user-info{ display:flex; flex-direction:column; align-items:flex-end; line-height:1.3; }
-.dash-user-name{ font-size:13.5px; font-weight:600; }
-.dash-user-role{ font-size:11.5px; color:var(--ink-soft); text-transform:capitalize; }
-.btn-primary{ padding:9px 16px; background:var(--brand-dark); color:#fff; border-radius:4px; font-size:13px; font-weight:600; text-decoration:none; white-space:nowrap; }
-.btn-primary:hover{ background:var(--brand); }
-.btn-secondary-link{ padding:9px 16px; background:#fff; color:var(--brand-dark); border:1.5px solid var(--line); border-radius:4px; font-size:13px; font-weight:600; text-decoration:none; white-space:nowrap; }
-.btn-secondary-link:hover{ border-color:var(--brand); }
+.dash{ font-family:'Inter',sans-serif; color:var(--ink); }
 
 .dash-main{ padding:28px 32px 60px 32px; max-width:1200px; margin:0 auto; }
 
@@ -349,8 +320,6 @@ tr:last-child td{ border-bottom:none; }
 @media (max-width:900px){
   .kpi-row{ grid-template-columns:repeat(2,1fr); }
   .charts-row{ grid-template-columns:1fr; }
-  .dash-header{ flex-direction:column; align-items:flex-start; gap:12px; }
-  .dash-user{ width:100%; justify-content:space-between; }
 }
 @media (max-width:560px){
   .kpi-row{ grid-template-columns:1fr; }
