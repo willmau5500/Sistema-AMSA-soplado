@@ -8,7 +8,7 @@ const NAV_PRINCIPAL = [
 ];
 
 const NAV_CONFIG = [
-  { label: "Metas de Producción", icon: TargetIcon, proximamente: true },
+  { href: "/metas", label: "Metas de Producción", icon: TargetIcon },
   { label: "Reportes Excel", icon: FileIcon, proximamente: true },
   { label: "Admin. Máquinas", icon: GearIcon, proximamente: true },
   { label: "Admin. Usuarios", icon: UsersIcon, proximamente: true },
@@ -20,6 +20,7 @@ const PAGE_TITLES = {
   "/produccion": "Registro de Producción",
   "/merma": "Registro de Merma",
   "/paradas": "Paradas de Máquina",
+  "/metas": "Metas de Producción",
 };
 
 export default function AppShell({ nombre, rol, paginaActual, children }) {
@@ -45,7 +46,7 @@ export default function AppShell({ nombre, rol, paginaActual, children }) {
           <div className="nav-section-label">Configuración</div>
           <nav className="nav-list">
             {NAV_CONFIG.map((item) => (
-              <NavItem key={item.label} item={item} active={false} />
+              <NavItem key={item.label} item={item} active={paginaActual === item.href} />
             ))}
           </nav>
         </aside>
