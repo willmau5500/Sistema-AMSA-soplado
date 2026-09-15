@@ -9,7 +9,7 @@ const NAV_PRINCIPAL = [
 
 const NAV_CONFIG = [
   { href: "/metas", label: "Metas de Producción", icon: TargetIcon },
-  { label: "Reportes Excel", icon: FileIcon, proximamente: true },
+  { href: "/reportes", label: "Reportes Excel", icon: FileIcon },
   { label: "Admin. Máquinas", icon: GearIcon, proximamente: true },
   { label: "Admin. Usuarios", icon: UsersIcon, proximamente: true },
   { label: "Admin. Base de Datos", icon: DbIcon, proximamente: true },
@@ -21,6 +21,7 @@ const PAGE_TITLES = {
   "/merma": "Registro de Merma",
   "/paradas": "Paradas de Máquina",
   "/metas": "Metas de Producción",
+  "/reportes": "Reportes Excel",
 };
 
 export default function AppShell({ nombre, rol, paginaActual, children }) {
