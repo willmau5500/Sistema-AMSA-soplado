@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { leerSesion } from "@/lib/session";
+import { registrarAuditoria } from "@/lib/auditoria";
 
 export async function GET(request) {
   const token = cookies().get("sesion")?.value;
@@ -71,6 +72,7 @@ export async function POST(request) {
       .update({ meta_botellas: Number(meta_botellas) })
       .eq("id", existente.id);
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    await registrarAuditoria({ sesion, accion: "editar", entidad: "meta", entidadId: existente.id, detalle: `Meta ${fecha} actualizada a ${meta_botellas} botellas (máquina id ${maquina_id}, turno id ${turno_id})` });
     return NextResponse.json({ ok: true, actualizado: true });
   }
 
@@ -85,5 +87,6 @@ export async function POST(request) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
+  await registrarAuditoria({ sesion, accion: "crear", entidad: "meta", detalle: `Meta ${fecha} de ${meta_botellas} botellas (máquina id ${maquina_id}, turno id ${turno_id})` });
   return NextResponse.json({ ok: true, actualizado: false });
 }

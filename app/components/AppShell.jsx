@@ -1,18 +1,23 @@
 import LogoutButton from "./LogoutButton";
+import ModoPlanta from "./ModoPlanta";
 
 const NAV_PRINCIPAL = [
   { href: "/dashboard", label: "Inicio", icon: HomeIcon },
   { href: "/produccion", label: "Registro de Producción", icon: FactoryIcon },
   { href: "/merma", label: "Registro de Merma", icon: DropIcon },
   { href: "/paradas", label: "Paradas de Máquina", icon: PauseIcon },
+  { href: "/trazabilidad", label: "Trazabilidad de Lotes", icon: SearchIcon },
+  { href: "/recepciones", label: "Recepción de Materia Prima", icon: TruckIcon },
 ];
 
 const NAV_CONFIG = [
   { href: "/metas", label: "Metas de Producción", icon: TargetIcon },
   { href: "/reportes", label: "Reportes Excel", icon: FileIcon },
-  { label: "Admin. Máquinas", icon: GearIcon, proximamente: true },
-  { label: "Admin. Usuarios", icon: UsersIcon, proximamente: true },
-  { label: "Admin. Base de Datos", icon: DbIcon, proximamente: true },
+  { href: "/admin/proveedores", label: "Admin. Proveedores", icon: UsersIcon, soloAdmin: true },
+  { href: "/admin/maquinas", label: "Admin. Máquinas", icon: GearIcon, soloAdmin: true },
+  { href: "/admin/usuarios", label: "Admin. Usuarios", icon: UsersIcon, soloAdmin: true },
+  { href: "/admin/base-datos", label: "Admin. Base de Datos", icon: DbIcon, soloAdmin: true },
+  { href: "/admin/auditoria", label: "Auditoría", icon: ShieldIcon, soloAdmin: true },
 ];
 
 const PAGE_TITLES = {
@@ -22,6 +27,9 @@ const PAGE_TITLES = {
   "/paradas": "Paradas de Máquina",
   "/metas": "Metas de Producción",
   "/reportes": "Reportes Excel",
+  "/admin/maquinas": "Admin. Máquinas",
+  "/admin/usuarios": "Admin. Usuarios",
+  "/admin/base-datos": "Admin. Base de Datos",
 };
 
 export default function AppShell({ nombre, rol, paginaActual, children }) {
@@ -46,7 +54,7 @@ export default function AppShell({ nombre, rol, paginaActual, children }) {
 
           <div className="nav-section-label">Configuración</div>
           <nav className="nav-list">
-            {NAV_CONFIG.map((item) => (
+            {NAV_CONFIG.filter((item) => !item.soloAdmin || rol === "admin").map((item) => (
               <NavItem key={item.label} item={item} active={paginaActual === item.href} />
             ))}
           </nav>
@@ -56,6 +64,7 @@ export default function AppShell({ nombre, rol, paginaActual, children }) {
           <header className="topbar">
             <h1>{titulo}</h1>
             <div className="topbar-user">
+              <ModoPlanta />
               <div className="topbar-user-info">
                 <span className="topbar-user-name">{nombre}</span>
                 <span className="topbar-user-role">{rol}</span>
@@ -115,6 +124,18 @@ function GearIcon() {
 function UsersIcon() {
   return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" strokeLinecap="round" strokeLinejoin="round" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" strokeLinecap="round" strokeLinejoin="round" /></svg>;
 }
+function TruckIcon() {
+  return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 6h13v10H1zM14 9h4l3 3v4h-7z" strokeLinecap="round" strokeLinejoin="round" /><circle cx="6" cy="18" r="2" /><circle cx="17" cy="18" r="2" /></svg>;
+}
+
+function SearchIcon() {
+  return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" strokeLinecap="round" strokeLinejoin="round" /></svg>;
+}
+
+function ShieldIcon() {
+  return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 3 4 6v6c0 4.5 3.2 8.2 8 9 4.8-.8 8-4.5 8-9V6l-8-3Z" strokeLinecap="round" strokeLinejoin="round" /><path d="m9 12 2 2 4-4" strokeLinecap="round" strokeLinejoin="round" /></svg>;
+}
+
 function DbIcon() {
   return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><ellipse cx="12" cy="5" rx="8" ry="3" /><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5" strokeLinecap="round" strokeLinejoin="round" /><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3" strokeLinecap="round" strokeLinejoin="round" /></svg>;
 }

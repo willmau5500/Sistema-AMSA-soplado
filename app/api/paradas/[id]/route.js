@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { leerSesion } from "@/lib/session";
+import { registrarAuditoria } from "@/lib/auditoria";
 
 export async function PATCH(request, { params }) {
   const token = cookies().get("sesion")?.value;
@@ -37,6 +38,8 @@ export async function PATCH(request, { params }) {
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
+
+  await registrarAuditoria({ sesion, accion: "finalizar", entidad: "parada", entidadId: id, detalle: `Parada finalizada: ${duracionMinutos} min` });
 
   return NextResponse.json({ ok: true, duracion_minutos: duracionMinutos });
 }

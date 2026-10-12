@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { leerSesion } from "@/lib/session";
+import { registrarAuditoria } from "@/lib/auditoria";
 
 const ETAPAS_VALIDAS = ["preforma", "soplado"];
 const TIPOS_VALIDOS = ["merma", "producto_danado"];
@@ -53,6 +54,8 @@ export async function POST(request) {
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
+
+  await registrarAuditoria({ sesion, accion: "crear", entidad: "merma", entidadId: merma.id, detalle: `${tipo === "producto_danado" ? "Producto dañado" : "Merma"} (${etapa}) ${peso_kg} kg en lote id ${lote_id}`, datos: { lote_id, etapa, tipo, peso_kg: Number(peso_kg), observacion: observacion || null } });
 
   return NextResponse.json({ ok: true, merma });
 }

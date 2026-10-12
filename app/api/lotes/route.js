@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { leerSesion } from "@/lib/session";
+import { registrarAuditoria } from "@/lib/auditoria";
 
 export async function GET() {
   const token = cookies().get("sesion")?.value;
@@ -131,6 +132,29 @@ export async function POST(request) {
     return NextResponse.json({ error: loteError.message }, { status: 500 });
   }
 
+  // ---------- Trazabilidad de origen: consumir las recepciones más antiguas primero (FIFO) ----------
+  try {
+    const { data: entradas } = await supabaseAdmin
+      .from("recepciones_mp")
+      .select("id, saldo_kg")
+      .eq("materia_prima_id", materia_prima_id)
+      .gt("saldo_kg", 0)
+      .order("creado_en", { ascending: true });
+
+    let pendiente = Number(cantidad_materia_prima_kg);
+    const consumos = [];
+    for (const e of entradas || []) {
+      if (pendiente <= 0) break;
+      const tomar = Math.min(pendiente, Number(e.saldo_kg));
+      await supabaseAdmin.from("recepciones_mp").update({ saldo_kg: Number(e.saldo_kg) - tomar }).eq("id", e.id);
+      consumos.push({ lote_id: lote.id, recepcion_id: e.id, cantidad_kg: tomar });
+      pendiente -= tomar;
+    }
+    if (consumos.length) await supabaseAdmin.from("lote_consumos_mp").insert(consumos);
+  } catch {
+    /* la trazabilidad de origen nunca debe impedir el registro del lote */
+  }
+
   // ---------- Descontar materia prima del inventario ----------
   await supabaseAdmin
     .from("materia_prima")
@@ -167,6 +191,8 @@ export async function POST(request) {
       cantidad_disponible: cantidad_botellas_terminadas,
     });
   }
+
+  await registrarAuditoria({ sesion, accion: "crear", entidad: "lote", entidadId: lote.id, detalle: `Lote ${lote.codigo_lote}: ${cantidad_botellas_terminadas} botellas, ${cantidad_materia_prima_kg} kg de MP` });
 
   return NextResponse.json({ ok: true, lote });
 }

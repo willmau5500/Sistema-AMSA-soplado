@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { crearSesion } from "@/lib/session";
+import { registrarAuditoria } from "@/lib/auditoria";
 
 export async function POST(request) {
   const { usuario, password } = await request.json();
@@ -22,6 +23,7 @@ export async function POST(request) {
     .single();
 
   if (error || !user || !user.activo) {
+    await registrarAuditoria({ usuarioNombre: String(usuario).slice(0, 80), accion: "login_fallido", entidad: "sesion", detalle: "Usuario inexistente o inactivo" });
     return NextResponse.json(
       { error: "Usuario o contraseña incorrectos." },
       { status: 401 }
@@ -30,6 +32,7 @@ export async function POST(request) {
 
   const passwordValida = await bcrypt.compare(password, user.password_hash);
   if (!passwordValida) {
+    await registrarAuditoria({ sesion: { id: user.id, nombre: user.nombre, rol: user.rol }, accion: "login_fallido", entidad: "sesion", detalle: "Contraseña incorrecta" });
     return NextResponse.json(
       { error: "Usuario o contraseña incorrectos." },
       { status: 401 }
@@ -41,6 +44,8 @@ export async function POST(request) {
     nombre: user.nombre,
     rol: user.rol,
   });
+
+  await registrarAuditoria({ sesion: { id: user.id, nombre: user.nombre, rol: user.rol }, accion: "login", entidad: "sesion" });
 
   const response = NextResponse.json({
     ok: true,
